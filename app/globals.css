@@ -44,27 +44,24 @@ body {
   height: calc(100vh - (clamp(0.85rem, 1.4vw, 1.5rem) * 2));
   height: calc(100dvh - (clamp(0.85rem, 1.4vw, 1.5rem) * 2));
   display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: clamp(0.75rem, 1vw, 1.1rem);
+  grid-template-rows: 1fr;
 }
 
-.topbar,
-.hero-grid,
-.bottombar {
+.hero-grid {
   width: min(100%, 1800px);
   margin: 0 auto;
-}
-
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
 }
 
 .topbar-title {
   display: grid;
   gap: 0.45rem;
+}
+
+.card-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 1rem;
 }
 
 .eyebrow {
@@ -86,6 +83,12 @@ body {
   margin: 0;
   color: var(--muted);
   font-size: clamp(0.92rem, 1vw, 1.08rem);
+}
+
+.topbar-location {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(0.78rem, 0.92vw, 0.95rem);
 }
 
 .clock-card,
@@ -117,19 +120,11 @@ body {
   font-size: clamp(0.92rem, 1vw, 1.02rem);
 }
 
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
-  align-items: stretch;
-  min-height: 0;
-}
-
 .poster-card {
   position: relative;
   overflow: hidden;
   border-radius: 36px;
-  min-height: 0;
+  min-height: 100%;
   animation: posterReveal 600ms ease;
 }
 
@@ -159,7 +154,7 @@ body {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto 1fr;
   gap: 0.8rem;
   padding: clamp(1.1rem, 1.6vw, 1.7rem);
   height: 100%;
@@ -337,34 +332,6 @@ body {
   box-shadow: inset 0 0 0 1px rgba(96, 216, 255, 0.22);
 }
 
-.bottombar {
-  display: grid;
-  gap: 0.65rem;
-}
-
-.progress-track {
-  width: 100%;
-  height: 10px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
-}
-
-.progress-value {
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, var(--cyan), var(--gold));
-  transition: width 1s linear;
-}
-
-.footer-meta {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  color: var(--muted);
-  font-size: 0.88rem;
-}
-
 @media (max-width: 1100px) and (orientation: portrait) {
   .screen-shell {
     padding: 1rem;
@@ -375,9 +342,8 @@ body {
     height: calc(100dvh - 2rem);
   }
 
-  .topbar,
-  .poster-label-row,
-  .footer-meta {
+  .card-topbar,
+  .poster-label-row {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -426,13 +392,11 @@ body {
     height: calc(100dvh - 1.1rem);
   }
 
-  .topbar,
-  .hero-grid,
-  .bottombar {
+  .hero-grid {
     width: 100%;
   }
 
-  .topbar {
+  .card-topbar {
     grid-template-columns: minmax(0, 1fr) auto;
     display: grid;
     align-items: start;
@@ -450,6 +414,10 @@ body {
   .topbar-subtitle {
     font-size: 0.74rem;
     line-height: 1.25;
+  }
+
+  .topbar-location {
+    font-size: 0.66rem;
   }
 
   .clock-card {
@@ -598,24 +566,12 @@ body {
     padding: 0.46rem 0.58rem;
   }
 
-  .bottombar {
-    gap: 0.35rem;
-  }
-
-  .progress-track {
-    height: 6px;
-  }
-
-  .footer-meta {
-    flex-direction: row;
-    align-items: center;
-    font-size: 0.68rem;
-  }
 }
 
 @media (orientation: landscape) and (max-height: 650px) {
   .topbar-subtitle,
-  .footer-meta span:first-child {
+  .topbar-location,
+  .poster-description {
     display: none;
   }
 
@@ -635,10 +591,6 @@ body {
 @media (min-aspect-ratio: 16/9) {
   .screen-shell {
     padding: clamp(0.7rem, 1vw, 1.1rem);
-  }
-
-  .screen-frame {
-    gap: 0.8rem;
   }
 
   .poster-content {

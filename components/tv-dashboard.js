@@ -46,23 +46,10 @@ export function TVDashboard() {
   }, []);
 
   const activePoster = slides[activeSlide];
-  const remainingMs = Math.max(0, ROTATION_MS - (Date.now() - cycleStartedAt));
-  const progress = (remainingMs / ROTATION_MS) * 100;
 
   return (
     <main className="screen-shell">
       <section className="screen-frame">
-        <header className="topbar">
-          <div className="topbar-title">
-            <h1>{dashboardContent.schoolName}</h1>
-            <p className="topbar-subtitle">{dashboardContent.tagline}</p>
-          </div>
-          <div className="clock-card">
-            <span className="clock-time">{formatClock(now)}</span>
-            <span className="clock-date">{formatDate(now)}</span>
-          </div>
-        </header>
-
         <section className="hero-grid">
           <article
             className={`poster-card poster-${activePoster.theme}`}
@@ -70,6 +57,18 @@ export function TVDashboard() {
           >
             <div className="poster-glow" />
             <div className="poster-content">
+              <div className="card-topbar">
+                <div className="topbar-title">
+                  <h1>{dashboardContent.schoolName}</h1>
+                  <p className="topbar-subtitle">{dashboardContent.tagline}</p>
+                  <p className="topbar-location">{dashboardContent.location}</p>
+                </div>
+                <div className="clock-card">
+                  <span className="clock-time">{formatClock(now)}</span>
+                  <span className="clock-date">{formatDate(now)}</span>
+                </div>
+              </div>
+
               <div className="poster-label-row">
                 <span className="poster-label">{activePoster.label}</span>
                 <span className="poster-interval">Auto rotate 30 saat</span>
@@ -155,16 +154,6 @@ export function TVDashboard() {
             </div>
           </article>
         </section>
-
-        <footer className="bottombar">
-          <div className="progress-track">
-            <div className="progress-value" style={{ width: `${progress}%` }} />
-          </div>
-          <div className="footer-meta">
-            <span>{dashboardContent.tagline}</span>
-            <span>{dashboardContent.location}</span>
-          </div>
-        </footer>
       </section>
     </main>
   );
