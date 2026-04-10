@@ -53,9 +53,9 @@ export function TVDashboard() {
     <main className="screen-shell">
       <section className="screen-frame">
         <header className="topbar">
-          <div>
-            <p className="eyebrow">Dashboard TV Sekolah</p>
+          <div className="topbar-title">
             <h1>{dashboardContent.schoolName}</h1>
+            <p className="topbar-subtitle">{dashboardContent.tagline}</p>
           </div>
           <div className="clock-card">
             <span className="clock-time">{formatClock(now)}</span>

@@ -29,18 +29,19 @@ body {
 
 body {
   min-height: 100vh;
+  overflow: hidden;
 }
 
 .screen-shell {
-  min-height: 100vh;
-  padding: 2rem;
+  height: 100vh;
+  padding: clamp(0.85rem, 1.4vw, 1.5rem);
 }
 
 .screen-frame {
-  min-height: calc(100vh - 4rem);
+  height: calc(100vh - (clamp(0.85rem, 1.4vw, 1.5rem) * 2));
   display: grid;
   grid-template-rows: auto 1fr auto;
-  gap: 1.5rem;
+  gap: clamp(0.75rem, 1vw, 1.1rem);
 }
 
 .topbar,
@@ -57,6 +58,11 @@ body {
   gap: 1rem;
 }
 
+.topbar-title {
+  display: grid;
+  gap: 0.45rem;
+}
+
 .eyebrow {
   margin: 0 0 0.35rem;
   text-transform: uppercase;
@@ -68,8 +74,14 @@ body {
 .topbar h1 {
   margin: 0;
   font-family: "Iowan Old Style", "Palatino Linotype", serif;
-  font-size: clamp(2rem, 4vw, 3.75rem);
+  font-size: clamp(1.9rem, 3vw, 3.1rem);
   line-height: 1.05;
+}
+
+.topbar-subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(0.92rem, 1vw, 1.08rem);
 }
 
 .clock-card,
@@ -82,8 +94,8 @@ body {
 }
 
 .clock-card {
-  min-width: 320px;
-  padding: 1.1rem 1.3rem;
+  min-width: 280px;
+  padding: 0.9rem 1.15rem;
   border-radius: 24px;
   display: flex;
   flex-direction: column;
@@ -91,27 +103,29 @@ body {
 }
 
 .clock-time {
-  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-size: clamp(1.9rem, 3.2vw, 3rem);
   font-weight: 700;
 }
 
 .clock-date {
   color: var(--muted);
   text-transform: capitalize;
+  font-size: clamp(0.92rem, 1vw, 1.02rem);
 }
 
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(300px, 0.8fr);
-  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1.75fr) minmax(280px, 0.85fr);
+  gap: clamp(0.8rem, 1vw, 1.1rem);
   align-items: stretch;
+  min-height: 0;
 }
 
 .poster-card {
   position: relative;
   overflow: hidden;
   border-radius: 36px;
-  min-height: 64vh;
+  min-height: 0;
   animation: posterReveal 600ms ease;
 }
 
@@ -142,8 +156,8 @@ body {
   z-index: 1;
   display: grid;
   grid-template-rows: auto 1fr;
-  gap: 1rem;
-  padding: 2rem;
+  gap: 0.8rem;
+  padding: clamp(1.1rem, 1.6vw, 1.7rem);
   height: 100%;
 }
 
@@ -157,8 +171,8 @@ body {
 .poster-label,
 .poster-interval {
   border-radius: 999px;
-  padding: 0.5rem 0.9rem;
-  font-size: 0.85rem;
+  padding: 0.42rem 0.82rem;
+  font-size: 0.78rem;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
@@ -174,23 +188,24 @@ body {
 .poster-body {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.95fr);
-  gap: 1.5rem;
+  gap: 1rem;
   align-items: end;
+  min-height: 0;
 }
 
 .poster-body h2 {
-  margin: 0.45rem 0 0.9rem;
+  margin: 0.3rem 0 0.65rem;
   font-family: "Iowan Old Style", "Palatino Linotype", serif;
-  font-size: clamp(2.4rem, 5vw, 5rem);
-  line-height: 0.98;
+  font-size: clamp(2rem, 3.3vw, 3.8rem);
+  line-height: 1;
 }
 
 .poster-description {
   margin: 0;
   max-width: 56ch;
   color: var(--muted);
-  font-size: clamp(1rem, 1.5vw, 1.35rem);
-  line-height: 1.6;
+  font-size: clamp(0.95rem, 1.12vw, 1.12rem);
+  line-height: 1.45;
 }
 
 .announcement-layout,
@@ -214,7 +229,7 @@ body {
 }
 
 .highlight-box {
-  padding: 1.4rem;
+  padding: 1.1rem;
 }
 
 .highlight-caption {
@@ -227,8 +242,8 @@ body {
 }
 
 .highlight-box strong {
-  font-size: clamp(1.2rem, 2vw, 1.9rem);
-  line-height: 1.4;
+  font-size: clamp(1.08rem, 1.5vw, 1.5rem);
+  line-height: 1.35;
 }
 
 .info-list {
@@ -241,7 +256,7 @@ body {
 
 .info-item,
 .ticker-item {
-  padding: 1rem 1.15rem;
+  padding: 0.82rem 0.95rem;
 }
 
 .info-item span,
@@ -260,45 +275,48 @@ body {
 .ticker-item strong,
 .queue-item strong,
 .prayer-card strong {
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .prayer-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 0.8rem;
 }
 
 .prayer-card {
-  padding: 1.25rem;
+  padding: 0.95rem 1rem;
 }
 
 .prayer-card strong {
-  font-size: clamp(1.4rem, 2vw, 2.2rem);
+  font-size: clamp(1.2rem, 1.65vw, 1.8rem);
 }
 
 .side-panel {
-  grid-template-rows: repeat(3, minmax(0, 1fr));
+  grid-template-rows: 0.8fr 0.95fr 1fr;
+  min-height: 0;
 }
 
 .mini-card {
-  padding: 1.4rem;
-  border-radius: 28px;
+  padding: 1rem 1.05rem;
+  border-radius: 24px;
+  min-height: 0;
 }
 
 .mini-card h3 {
-  margin: 0.3rem 0 0.7rem;
-  font-size: 1.45rem;
+  margin: 0.2rem 0 0.55rem;
+  font-size: 1.2rem;
 }
 
 .mini-card p {
   margin: 0;
   color: var(--muted);
-  line-height: 1.6;
+  line-height: 1.45;
+  font-size: 0.95rem;
 }
 
 .queue-item {
-  padding: 0.95rem 1rem;
+  padding: 0.72rem 0.86rem;
 }
 
 .queue-item.active {
@@ -308,12 +326,12 @@ body {
 
 .bottombar {
   display: grid;
-  gap: 0.85rem;
+  gap: 0.65rem;
 }
 
 .progress-track {
   width: 100%;
-  height: 12px;
+  height: 10px;
   overflow: hidden;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.12);
@@ -331,7 +349,7 @@ body {
   justify-content: space-between;
   gap: 1rem;
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 0.88rem;
 }
 
 @media (max-width: 1100px) {
@@ -340,7 +358,7 @@ body {
   }
 
   .screen-frame {
-    min-height: calc(100vh - 2rem);
+    height: calc(100vh - 2rem);
   }
 
   .topbar,
@@ -379,6 +397,24 @@ body {
   .info-list,
   .prayer-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (min-aspect-ratio: 16/9) {
+  .screen-shell {
+    padding: clamp(0.7rem, 1vw, 1.1rem);
+  }
+
+  .screen-frame {
+    gap: 0.8rem;
+  }
+
+  .poster-content {
+    padding: 1rem 1.15rem;
+  }
+
+  .poster-body {
+    grid-template-columns: minmax(0, 1.3fr) minmax(290px, 0.9fr);
   }
 }
 
