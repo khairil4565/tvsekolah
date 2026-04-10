@@ -1,0 +1,16 @@
+{
+  "name": "tvsekolah",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dashboard paparan TV sekolah menggunakan Next.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^16.2.3",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  }
+}
