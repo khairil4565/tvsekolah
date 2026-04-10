@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { dashboardContent, slides } from "../lib/dashboard-content";
+import { dashboardContent, mosqueSlides } from "../lib/dashboard-content";
 
-const ROTATION_MS = 30_000;
+const SLIDE_DURATION_MS = 12_000;
 
 function formatClock(date) {
   return new Intl.DateTimeFormat("ms-MY", {
@@ -26,7 +26,6 @@ function formatDate(date) {
 export function TVDashboard() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [now, setNow] = useState(() => new Date());
-  const [cycleStartedAt, setCycleStartedAt] = useState(Date.now());
 
   useEffect(() => {
     const clockTimer = window.setInterval(() => {
@@ -38,122 +37,68 @@ export function TVDashboard() {
 
   useEffect(() => {
     const slideTimer = window.setInterval(() => {
-      setActiveSlide((current) => (current + 1) % slides.length);
-      setCycleStartedAt(Date.now());
-    }, ROTATION_MS);
+      setActiveSlide((current) => (current + 1) % mosqueSlides.length);
+    }, SLIDE_DURATION_MS);
 
     return () => window.clearInterval(slideTimer);
   }, []);
 
-  const activePoster = slides[activeSlide];
+  const slide = mosqueSlides[activeSlide];
 
   return (
     <main className="screen-shell">
       <section className="screen-frame">
-        <section className="hero-grid">
-          <article
-            className={`poster-card poster-${activePoster.theme}`}
-            key={activePoster.id}
-          >
-            <div className="poster-glow" />
-            <div className="poster-content">
-              <div className="card-topbar">
-                <div className="topbar-title">
-                  <h1>{dashboardContent.schoolName}</h1>
-                  <p className="topbar-subtitle">{dashboardContent.tagline}</p>
-                  <p className="topbar-location">{dashboardContent.location}</p>
-                </div>
-                <div className="clock-card">
-                  <span className="clock-time">{formatClock(now)}</span>
-                  <span className="clock-date">{formatDate(now)}</span>
-                </div>
+        <article className="display-card">
+          <div className="display-visual">
+            {mosqueSlides.map((item, index) => (
+              <div
+                aria-hidden={index !== activeSlide}
+                className={`visual-slide ${index === activeSlide ? "active" : ""}`}
+                key={item.id}
+              >
+                <img
+                  alt={item.alt}
+                  className="visual-image"
+                  draggable="false"
+                  src={item.image}
+                />
+              </div>
+            ))}
+
+            <div className="visual-overlay" />
+
+            <div className="display-header">
+              <div className="school-block">
+                <p className="school-label">Paparan TV Sekolah</p>
+                <h1>{dashboardContent.schoolName}</h1>
               </div>
 
-              <div className="poster-label-row">
-                <span className="poster-label">{activePoster.label}</span>
-                <span className="poster-interval">Auto rotate 30 saat</span>
-              </div>
-
-              <div className="poster-body">
-                <div className="poster-main">
-                  <p className="poster-kicker">{activePoster.kicker}</p>
-                  <h2>{activePoster.title}</h2>
-                  <p className="poster-description">{activePoster.description}</p>
-                  <div className="poster-inline-meta">
-                    <div className="mini-card inline-card">
-                      <p className="eyebrow">Sedang Dipaparkan</p>
-                      <h3>{activePoster.label}</h3>
-                      <p>{activePoster.sideNote}</p>
-                    </div>
-
-                    <div className="mini-card inline-card">
-                      <p className="eyebrow">Seterusnya</p>
-                      <div className="queue-list">
-                        {slides.map((slide, index) => (
-                          <div
-                            className={`queue-item ${index === activeSlide ? "active" : ""}`}
-                            key={slide.id}
-                          >
-                            <span>{String(index + 1).padStart(2, "0")}</span>
-                            <strong>{slide.label}</strong>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="mini-card inline-card">
-                      <p className="eyebrow">Maklumat Ringkas</p>
-                      <div className="ticker-list">
-                        {dashboardContent.quickInfo.map((item) => (
-                          <div className="ticker-item" key={item.title}>
-                            <span>{item.title}</span>
-                            <strong>{item.value}</strong>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {activePoster.type === "announcement" ? (
-                  <div className="announcement-layout">
-                    <div className="highlight-box">
-                      <span className="highlight-caption">Perhatian</span>
-                      <strong>{activePoster.highlight}</strong>
-                    </div>
-                    <div className="info-list">
-                      {activePoster.items.map((item) => (
-                        <div className="info-item" key={item.title}>
-                          <span>{item.title}</span>
-                          <strong>{item.value}</strong>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="prayer-layout">
-                    <div className="prayer-grid">
-                      {activePoster.prayerTimes.map((prayer) => (
-                        <div className="prayer-card" key={prayer.name}>
-                          <span>{prayer.name}</span>
-                          <strong>{prayer.time}</strong>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="info-list compact">
-                      {activePoster.notes.map((note) => (
-                        <div className="info-item" key={note.title}>
-                          <span>{note.title}</span>
-                          <strong>{note.value}</strong>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
+              <div className="time-block">
+                <strong>{formatClock(now)}</strong>
+                <span>{formatDate(now)}</span>
               </div>
             </div>
-          </article>
-        </section>
+
+            <div className="visual-caption">
+              <span>{slide.caption}</span>
+            </div>
+          </div>
+
+          <div className="prayer-strip">
+            {dashboardContent.prayerTimes.map((prayer) => (
+              <div className="prayer-tile" key={prayer.name}>
+                <span>{prayer.name}</span>
+                <strong>{prayer.time}</strong>
+              </div>
+            ))}
+          </div>
+
+          <div className="ticker-bar">
+            <div className="ticker-track">
+              <span>{dashboardContent.tickerText}</span>
+            </div>
+          </div>
+        </article>
       </section>
     </main>
   );

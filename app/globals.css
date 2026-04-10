@@ -1,14 +1,12 @@
 :root {
-  --bg: #081321;
-  --panel: rgba(6, 18, 35, 0.82);
-  --panel-soft: rgba(255, 255, 255, 0.08);
-  --text: #f7f5ef;
-  --muted: rgba(247, 245, 239, 0.75);
-  --gold: #f2b84b;
-  --cyan: #60d8ff;
-  --green: #8ce6a4;
-  --red: #ff8c7d;
-  --shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+  --text: #f6f0e5;
+  --muted: rgba(246, 240, 229, 0.78);
+  --border: rgba(255, 255, 255, 0.1);
+  --panel: rgba(6, 18, 35, 0.72);
+  --panel-strong: rgba(6, 18, 35, 0.9);
+  --gold: #f4c66c;
+  --cyan: #76d8ff;
+  --shadow: 0 28px 80px rgba(0, 0, 0, 0.34);
 }
 
 * {
@@ -21,9 +19,9 @@ body {
   width: 100%;
   min-height: 100%;
   background:
-    radial-gradient(circle at top left, rgba(96, 216, 255, 0.18), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(242, 184, 75, 0.14), transparent 30%),
-    linear-gradient(135deg, #081321 0%, #102847 45%, #091827 100%);
+    radial-gradient(circle at top left, rgba(118, 216, 255, 0.12), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(244, 198, 108, 0.12), transparent 24%),
+    linear-gradient(135deg, #081321 0%, #0d1f39 48%, #06101e 100%);
   color: var(--text);
   font-family: "Avenir Next", "Trebuchet MS", "Segoe UI", sans-serif;
 }
@@ -34,586 +32,321 @@ body {
   overflow: hidden;
 }
 
+img {
+  max-width: 100%;
+  display: block;
+}
+
 .screen-shell {
   height: 100vh;
   height: 100dvh;
-  padding: clamp(0.85rem, 1.4vw, 1.5rem);
+  padding: clamp(0.55rem, 1vw, 1rem);
 }
 
 .screen-frame {
-  height: calc(100vh - (clamp(0.85rem, 1.4vw, 1.5rem) * 2));
-  height: calc(100dvh - (clamp(0.85rem, 1.4vw, 1.5rem) * 2));
-  display: grid;
-  grid-template-rows: 1fr;
-}
-
-.hero-grid {
   width: min(100%, 1800px);
+  height: calc(100vh - (clamp(0.55rem, 1vw, 1rem) * 2));
+  height: calc(100dvh - (clamp(0.55rem, 1vw, 1rem) * 2));
   margin: 0 auto;
 }
 
-.topbar-title {
+.display-card {
+  height: 100%;
   display: grid;
-  gap: 0.45rem;
+  grid-template-rows: minmax(0, 1fr) auto auto;
+  overflow: hidden;
+  border-radius: 30px;
+  background: var(--panel-strong);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
 
-.card-topbar {
+.display-visual {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.visual-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 900ms ease, transform 9s ease;
+}
+
+.visual-slide.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.visual-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.visual-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(4, 10, 20, 0.2) 0%, rgba(4, 10, 20, 0.45) 58%, rgba(4, 10, 20, 0.82) 100%),
+    linear-gradient(90deg, rgba(4, 10, 20, 0.62) 0%, rgba(4, 10, 20, 0.15) 48%, rgba(4, 10, 20, 0.62) 100%);
+}
+
+.display-header,
+.visual-caption {
+  position: absolute;
+  z-index: 2;
+}
+
+.display-header {
+  top: clamp(0.8rem, 1.4vw, 1.4rem);
+  left: clamp(0.8rem, 1.4vw, 1.4rem);
+  right: clamp(0.8rem, 1.4vw, 1.4rem);
   display: flex;
   justify-content: space-between;
   align-items: start;
   gap: 1rem;
 }
 
-.eyebrow {
-  margin: 0 0 0.35rem;
+.school-block {
+  display: grid;
+  gap: 0.28rem;
+  max-width: 60%;
+}
+
+.school-label {
+  margin: 0;
+  color: var(--cyan);
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  font-size: 0.75rem;
-  color: var(--cyan);
+  font-size: 0.76rem;
 }
 
-.topbar h1 {
+.school-block h1 {
   margin: 0;
   font-family: "Iowan Old Style", "Palatino Linotype", serif;
-  font-size: clamp(1.9rem, 3vw, 3.1rem);
-  line-height: 1.05;
+  font-size: clamp(1.6rem, 3vw, 3.05rem);
+  line-height: 1.02;
 }
 
-.topbar-subtitle {
-  margin: 0;
-  color: var(--muted);
-  font-size: clamp(0.92rem, 1vw, 1.08rem);
-}
-
-.topbar-location {
-  margin: 0;
-  color: var(--muted);
-  font-size: clamp(0.78rem, 0.92vw, 0.95rem);
-}
-
-.clock-card,
-.mini-card,
-.poster-card {
-  backdrop-filter: blur(18px);
-  background: var(--panel);
+.time-block {
+  min-width: 240px;
+  padding: 0.78rem 0.95rem;
+  display: grid;
+  gap: 0.15rem;
+  justify-items: end;
+  border-radius: 22px;
+  background: rgba(6, 18, 35, 0.48);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
 }
 
-.clock-card {
-  min-width: 280px;
-  padding: 0.9rem 1.15rem;
-  border-radius: 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.clock-time {
-  font-size: clamp(1.9rem, 3.2vw, 3rem);
-  font-weight: 700;
-}
-
-.clock-date {
-  color: var(--muted);
-  text-transform: capitalize;
-  font-size: clamp(0.92rem, 1vw, 1.02rem);
-}
-
-.poster-card {
-  position: relative;
-  overflow: hidden;
-  border-radius: 36px;
-  min-height: 100%;
-  animation: posterReveal 600ms ease;
-}
-
-.poster-announcement {
-  background:
-    radial-gradient(circle at top right, rgba(255, 140, 125, 0.25), transparent 28%),
-    linear-gradient(145deg, rgba(87, 28, 22, 0.78), rgba(26, 18, 37, 0.9));
-}
-
-.poster-prayer {
-  background:
-    radial-gradient(circle at top right, rgba(140, 230, 164, 0.2), transparent 28%),
-    linear-gradient(145deg, rgba(7, 54, 44, 0.82), rgba(9, 24, 39, 0.96));
-}
-
-.poster-glow {
-  position: absolute;
-  inset: auto -10% -30% auto;
-  width: 420px;
-  height: 420px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  filter: blur(10px);
-}
-
-.poster-content {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-rows: auto auto 1fr;
-  gap: 0.8rem;
-  padding: clamp(1.1rem, 1.6vw, 1.7rem);
-  height: 100%;
-}
-
-.poster-label-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-}
-
-.poster-label,
-.poster-interval {
-  border-radius: 999px;
-  padding: 0.42rem 0.82rem;
-  font-size: 0.78rem;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.poster-kicker {
-  margin: 0;
-  color: var(--gold);
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-size: 0.82rem;
-}
-
-.poster-body {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.95fr);
-  gap: 1rem;
-  align-items: end;
-  min-height: 0;
-}
-
-.poster-main {
-  display: grid;
-  gap: 0.9rem;
-}
-
-.poster-inline-meta {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.8rem;
-}
-
-.poster-body h2 {
-  margin: 0.3rem 0 0.65rem;
-  font-family: "Iowan Old Style", "Palatino Linotype", serif;
-  font-size: clamp(2rem, 3.3vw, 3.8rem);
+.time-block strong {
+  font-size: clamp(1.55rem, 2.8vw, 2.8rem);
   line-height: 1;
 }
 
-.poster-description {
-  margin: 0;
-  max-width: 56ch;
+.time-block span {
+  font-size: clamp(0.84rem, 1vw, 1rem);
   color: var(--muted);
-  font-size: clamp(0.95rem, 1.12vw, 1.12rem);
-  line-height: 1.45;
+  text-transform: capitalize;
 }
 
-.announcement-layout,
-.prayer-layout,
-.info-list,
-.ticker-list,
-.queue-list {
-  display: grid;
-  gap: 1rem;
+.visual-caption {
+  left: clamp(0.8rem, 1.4vw, 1.4rem);
+  right: clamp(0.8rem, 1.4vw, 1.4rem);
+  bottom: clamp(0.8rem, 1.4vw, 1.4rem);
+  display: flex;
+  justify-content: flex-start;
 }
 
-.highlight-box,
-.info-item,
-.prayer-card,
-.queue-item,
-.ticker-item {
-  border-radius: 24px;
-  background: var(--panel-soft);
+.visual-caption span {
+  max-width: min(72ch, 78%);
+  padding: 0.72rem 0.95rem;
+  border-radius: 18px;
+  background: rgba(6, 18, 35, 0.62);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--muted);
+  font-size: clamp(0.84rem, 1vw, 1rem);
+  line-height: 1.4;
+  backdrop-filter: blur(10px);
 }
 
-.highlight-box {
-  padding: 1.1rem;
+.prayer-strip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.55rem;
+  padding: 0.65rem 0.7rem;
+  background: rgba(6, 18, 35, 0.92);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.highlight-caption {
+.prayer-tile {
+  padding: 0.82rem 0.45rem;
+  border-radius: 18px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.prayer-tile span {
   display: block;
-  margin-bottom: 0.5rem;
-  color: var(--gold);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-size: 0.78rem;
-}
-
-.highlight-box strong {
-  font-size: clamp(1.08rem, 1.5vw, 1.5rem);
-  line-height: 1.35;
-}
-
-.info-list {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.info-list.compact {
-  grid-template-columns: 1fr;
-}
-
-.info-item,
-.ticker-item {
-  padding: 0.82rem 0.95rem;
-}
-
-.info-item span,
-.ticker-item span,
-.prayer-card span,
-.queue-item span {
-  display: block;
-  margin-bottom: 0.45rem;
-  font-size: 0.82rem;
+  margin-bottom: 0.25rem;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.12em;
+  font-size: 0.72rem;
 }
 
-.info-item strong,
-.ticker-item strong,
-.queue-item strong,
-.prayer-card strong {
-  font-size: 1rem;
+.prayer-tile strong {
+  display: block;
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
 }
 
-.prayer-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.8rem;
+.ticker-bar {
+  position: relative;
+  overflow: hidden;
+  padding: 0.72rem 0;
+  background: linear-gradient(90deg, #081321, #102847, #081321);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.prayer-card {
-  padding: 0.95rem 1rem;
+.ticker-track {
+  white-space: nowrap;
+  will-change: transform;
+  animation: tickerMove 24s linear infinite;
 }
 
-.prayer-card strong {
-  font-size: clamp(1.2rem, 1.65vw, 1.8rem);
-}
-
-.mini-card {
-  padding: 1rem 1.05rem;
-  border-radius: 24px;
-  min-height: 0;
-}
-
-.inline-card {
-  height: 100%;
-}
-
-.mini-card h3 {
-  margin: 0.2rem 0 0.55rem;
-  font-size: 1.2rem;
-}
-
-.mini-card p {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.45;
-  font-size: 0.95rem;
-}
-
-.queue-item {
-  padding: 0.72rem 0.86rem;
-}
-
-.queue-item.active {
-  border-color: rgba(96, 216, 255, 0.45);
-  box-shadow: inset 0 0 0 1px rgba(96, 216, 255, 0.22);
-}
-
-@media (max-width: 1100px) and (orientation: portrait) {
-  .screen-shell {
-    padding: 1rem;
-  }
-
-  .screen-frame {
-    height: calc(100vh - 2rem);
-    height: calc(100dvh - 2rem);
-  }
-
-  .card-topbar,
-  .poster-label-row {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .clock-card {
-    min-width: unset;
-    width: 100%;
-    align-items: flex-start;
-  }
-
-  .hero-grid,
-  .poster-body {
-    grid-template-columns: 1fr;
-  }
-
-  .poster-card {
-    min-height: unset;
-  }
-
-  .poster-inline-meta {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 700px) and (orientation: portrait) {
-  .poster-content,
-  .mini-card {
-    padding: 1.15rem;
-  }
-
-  .info-list,
-  .prayer-grid,
-  .poster-inline-meta {
-    grid-template-columns: 1fr;
-  }
+.ticker-track span {
+  display: inline-block;
+  padding-left: 0;
+  padding-right: 4rem;
+  color: var(--gold);
+  font-size: clamp(0.92rem, 1.12vw, 1.1rem);
+  letter-spacing: 0.03em;
 }
 
 @media (orientation: landscape) and (max-width: 1100px) {
   .screen-shell {
-    padding: 0.55rem;
+    padding: 0.3rem;
   }
 
   .screen-frame {
-    gap: 0.45rem;
-    height: calc(100vh - 1.1rem);
-    height: calc(100dvh - 1.1rem);
-  }
-
-  .hero-grid {
     width: 100%;
+    height: calc(100vh - 0.6rem);
+    height: calc(100dvh - 0.6rem);
   }
 
-  .card-topbar {
-    grid-template-columns: minmax(0, 1fr) auto;
-    display: grid;
-    align-items: start;
-    gap: 0.55rem;
-  }
-
-  .topbar-title {
-    gap: 0.2rem;
-  }
-
-  .topbar h1 {
-    font-size: clamp(1.15rem, 2.5vw, 1.65rem);
-  }
-
-  .topbar-subtitle {
-    font-size: 0.74rem;
-    line-height: 1.25;
-  }
-
-  .topbar-location {
-    font-size: 0.66rem;
-  }
-
-  .clock-card {
-    min-width: 210px;
-    width: auto;
-    padding: 0.6rem 0.8rem;
-    align-items: flex-end;
-  }
-
-  .clock-time {
-    font-size: clamp(1.25rem, 2.8vw, 1.85rem);
-  }
-
-  .clock-date {
-    font-size: 0.76rem;
-  }
-
-  .hero-grid {
-    gap: 0.45rem;
-  }
-
-  .poster-card {
-    border-radius: 22px;
-  }
-
-  .poster-content {
-    gap: 0.5rem;
-    padding: 0.7rem 0.8rem;
-  }
-
-  .poster-label-row {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.4rem;
-  }
-
-  .poster-label,
-  .poster-interval {
-    padding: 0.28rem 0.58rem;
-    font-size: 0.62rem;
-  }
-
-  .poster-kicker {
-    font-size: 0.64rem;
-  }
-
-  .poster-body {
-    grid-template-columns: minmax(0, 1.2fr) minmax(220px, 0.88fr);
-    gap: 0.55rem;
-  }
-
-  .poster-main {
-    gap: 0.55rem;
-  }
-
-  .poster-inline-meta {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.45rem;
-  }
-
-  .poster-body h2 {
-    margin: 0.18rem 0 0.45rem;
-    font-size: clamp(1.25rem, 2.8vw, 2.2rem);
-  }
-
-  .poster-description {
-    font-size: 0.78rem;
-    line-height: 1.3;
-  }
-
-  .announcement-layout,
-  .prayer-layout,
-  .info-list,
-  .ticker-list,
-  .queue-list,
-  .prayer-grid {
-    gap: 0.45rem;
-  }
-
-  .highlight-box {
-    padding: 0.7rem;
-  }
-
-  .highlight-caption {
-    margin-bottom: 0.28rem;
-    font-size: 0.62rem;
-  }
-
-  .highlight-box strong {
-    font-size: 0.88rem;
-    line-height: 1.25;
-  }
-
-  .info-item,
-  .ticker-item,
-  .prayer-card,
-  .queue-item {
-    border-radius: 16px;
-  }
-
-  .info-item,
-  .ticker-item {
-    padding: 0.55rem 0.65rem;
-  }
-
-  .info-item span,
-  .ticker-item span,
-  .prayer-card span,
-  .queue-item span {
-    margin-bottom: 0.2rem;
-    font-size: 0.6rem;
-  }
-
-  .info-item strong,
-  .ticker-item strong,
-  .queue-item strong,
-  .prayer-card strong {
-    font-size: 0.8rem;
-  }
-
-  .prayer-card {
-    padding: 0.65rem;
-  }
-
-  .prayer-card strong {
-    font-size: 1rem;
-  }
-
-  .mini-card {
-    padding: 0.68rem 0.75rem;
+  .display-card {
     border-radius: 18px;
   }
 
-  .mini-card h3 {
-    margin: 0.08rem 0 0.32rem;
-    font-size: 0.92rem;
+  .display-header {
+    top: 0.55rem;
+    left: 0.6rem;
+    right: 0.6rem;
+    gap: 0.6rem;
   }
 
-  .mini-card p {
-    font-size: 0.74rem;
-    line-height: 1.25;
+  .school-block {
+    max-width: 62%;
+    gap: 0.14rem;
   }
 
-  .queue-item {
-    padding: 0.46rem 0.58rem;
+  .school-label {
+    font-size: 0.58rem;
   }
 
+  .school-block h1 {
+    font-size: clamp(1rem, 2.6vw, 1.45rem);
+  }
+
+  .time-block {
+    min-width: 170px;
+    padding: 0.48rem 0.6rem;
+    border-radius: 14px;
+  }
+
+  .time-block strong {
+    font-size: clamp(1rem, 2.7vw, 1.5rem);
+  }
+
+  .time-block span {
+    font-size: 0.62rem;
+  }
+
+  .visual-caption {
+    left: 0.6rem;
+    right: 0.6rem;
+    bottom: 0.6rem;
+  }
+
+  .visual-caption span {
+    max-width: min(76ch, 82%);
+    padding: 0.42rem 0.62rem;
+    border-radius: 12px;
+    font-size: 0.68rem;
+  }
+
+  .prayer-strip {
+    gap: 0.34rem;
+    padding: 0.42rem;
+  }
+
+  .prayer-tile {
+    padding: 0.48rem 0.2rem;
+    border-radius: 12px;
+  }
+
+  .prayer-tile span {
+    margin-bottom: 0.16rem;
+    font-size: 0.52rem;
+  }
+
+  .prayer-tile strong {
+    font-size: 0.82rem;
+  }
+
+  .ticker-bar {
+    padding: 0.42rem 0;
+  }
+
+  .ticker-track span {
+    font-size: 0.72rem;
+    padding-right: 2rem;
+  }
 }
 
-@media (orientation: landscape) and (max-height: 650px) {
-  .topbar-subtitle,
-  .topbar-location,
-  .poster-description {
-    display: none;
+@media (max-width: 820px), (orientation: portrait) {
+  .display-header {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .hero-grid {
-    grid-template-columns: 1fr;
+  .school-block,
+  .visual-caption span {
+    max-width: 100%;
   }
 
-  .poster-body {
-    grid-template-columns: minmax(0, 1.35fr) minmax(200px, 0.82fr);
+  .time-block {
+    min-width: unset;
+    width: 100%;
+    justify-items: start;
   }
 
-  .poster-inline-meta {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-@media (min-aspect-ratio: 16/9) {
-  .screen-shell {
-    padding: clamp(0.7rem, 1vw, 1.1rem);
-  }
-
-  .poster-content {
-    padding: 1rem 1.15rem;
-  }
-
-  .poster-body {
-    grid-template-columns: minmax(0, 1.3fr) minmax(290px, 0.9fr);
-  }
-
-  .poster-inline-meta {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .prayer-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@keyframes posterReveal {
+@keyframes tickerMove {
   from {
-    opacity: 0.6;
-    transform: translateY(16px) scale(0.985);
+    transform: translateX(-100%);
   }
 
   to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateX(100%);
   }
 }

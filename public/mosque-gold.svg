@@ -1,0 +1,28 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#2A1733"/>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <circle cx="1220" cy="168" r="72" fill="#FFD38A"/>
+  <ellipse cx="800" cy="782" rx="800" ry="176" fill="#281432"/>
+  <ellipse cx="800" cy="842" rx="904" ry="156" fill="#150A1B"/>
+  <path d="M202 656H1398V732H202V656Z" fill="#3A2148"/>
+  <path d="M332 478H1268V656H332V478Z" fill="#553064"/>
+  <path d="M470 396H1130V478H470V396Z" fill="#704082"/>
+  <path d="M606 320L800 160L994 320V396H606V320Z" fill="#8A52A0"/>
+  <path d="M724 320C724 278.026 758.026 244 800 244C841.974 244 876 278.026 876 320H724Z" fill="#F8C978"/>
+  <path d="M562 396H650V656H562V396Z" fill="#653B77"/>
+  <path d="M950 396H1038V656H950V396Z" fill="#653B77"/>
+  <path d="M406 306H474V656H406V306Z" fill="#6D3F80"/>
+  <path d="M1126 306H1194V656H1126V306Z" fill="#6D3F80"/>
+  <path d="M392 306C392 266.235 424.235 234 464 234V306H392Z" fill="#F8C978"/>
+  <path d="M1112 306C1112 266.235 1144.24 234 1184 234V306H1112Z" fill="#F8C978"/>
+  <rect x="706" y="484" width="188" height="172" rx="88" fill="#311B3A"/>
+  <rect x="506" y="514" width="92" height="74" rx="18" fill="#FFD38A" fill-opacity="0.7"/>
+  <rect x="1002" y="514" width="92" height="74" rx="18" fill="#FFD38A" fill-opacity="0.7"/>
+  <defs>
+    <linearGradient id="sky" x1="800" y1="0" x2="800" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EE9A58"/>
+      <stop offset="0.48" stop-color="#6B355B"/>
+      <stop offset="1" stop-color="#150A1B"/>
+    </linearGradient>
+  </defs>
+</svg>
