@@ -80,7 +80,10 @@ export function TVDashboard() {
             </div>
 
             <div className="visual-caption">
-              <span>{slide.caption}</span>
+              <div className="caption-card">
+                <span>{slide.caption}</span>
+                <small>{slide.credit}</small>
+              </div>
             </div>
           </div>
 
