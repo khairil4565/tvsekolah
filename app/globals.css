@@ -352,7 +352,7 @@ body {
   font-size: 0.88rem;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1100px) and (orientation: portrait) {
   .screen-shell {
     padding: 1rem;
   }
@@ -388,7 +388,7 @@ body {
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 700px) and (orientation: portrait) {
   .poster-content,
   .mini-card {
     padding: 1.15rem;
@@ -415,6 +415,185 @@ body {
 
   .poster-body {
     grid-template-columns: minmax(0, 1.3fr) minmax(290px, 0.9fr);
+  }
+}
+
+@media (max-width: 1100px) and (orientation: landscape) {
+  .screen-shell {
+    padding: 0.45rem;
+  }
+
+  .screen-frame {
+    height: calc(100vh - 0.9rem);
+    gap: 0.45rem;
+  }
+
+  .topbar,
+  .hero-grid,
+  .bottombar {
+    width: 100%;
+  }
+
+  .topbar {
+    gap: 0.6rem;
+  }
+
+  .topbar h1 {
+    font-size: clamp(1.15rem, 2.1vw, 1.8rem);
+  }
+
+  .topbar-subtitle {
+    display: none;
+  }
+
+  .clock-card {
+    min-width: 205px;
+    padding: 0.55rem 0.75rem;
+    border-radius: 18px;
+  }
+
+  .clock-time {
+    font-size: clamp(1.2rem, 2.3vw, 1.8rem);
+  }
+
+  .clock-date {
+    font-size: 0.76rem;
+  }
+
+  .hero-grid {
+    grid-template-columns: minmax(0, 1.75fr) minmax(190px, 0.7fr);
+    gap: 0.45rem;
+  }
+
+  .poster-card,
+  .mini-card {
+    border-radius: 18px;
+  }
+
+  .poster-content {
+    padding: 0.72rem;
+    gap: 0.55rem;
+  }
+
+  .poster-label-row {
+    gap: 0.5rem;
+  }
+
+  .poster-label,
+  .poster-interval {
+    padding: 0.28rem 0.55rem;
+    font-size: 0.64rem;
+  }
+
+  .poster-kicker {
+    font-size: 0.66rem;
+  }
+
+  .poster-body {
+    grid-template-columns: minmax(0, 1.15fr) minmax(190px, 0.82fr);
+    gap: 0.55rem;
+  }
+
+  .poster-body h2 {
+    margin: 0.18rem 0 0.4rem;
+    font-size: clamp(1.15rem, 2vw, 2rem);
+    line-height: 1.02;
+  }
+
+  .poster-description {
+    font-size: 0.72rem;
+    line-height: 1.3;
+  }
+
+  .announcement-layout,
+  .prayer-layout,
+  .side-panel,
+  .info-list,
+  .ticker-list,
+  .queue-list,
+  .prayer-grid {
+    gap: 0.45rem;
+  }
+
+  .highlight-box {
+    padding: 0.72rem;
+  }
+
+  .highlight-caption {
+    margin-bottom: 0.3rem;
+    font-size: 0.62rem;
+  }
+
+  .highlight-box strong {
+    font-size: 0.86rem;
+    line-height: 1.28;
+  }
+
+  .info-item,
+  .ticker-item,
+  .prayer-card,
+  .queue-item {
+    border-radius: 16px;
+  }
+
+  .info-item,
+  .ticker-item,
+  .prayer-card {
+    padding: 0.58rem 0.65rem;
+  }
+
+  .queue-item {
+    padding: 0.5rem 0.6rem;
+  }
+
+  .info-item span,
+  .ticker-item span,
+  .prayer-card span,
+  .queue-item span {
+    margin-bottom: 0.22rem;
+    font-size: 0.6rem;
+  }
+
+  .info-item strong,
+  .ticker-item strong,
+  .queue-item strong,
+  .prayer-card strong {
+    font-size: 0.8rem;
+  }
+
+  .prayer-card strong {
+    font-size: 0.94rem;
+  }
+
+  .side-panel {
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+  }
+
+  .mini-card {
+    padding: 0.72rem;
+  }
+
+  .mini-card h3 {
+    margin: 0.1rem 0 0.28rem;
+    font-size: 0.92rem;
+  }
+
+  .mini-card p {
+    font-size: 0.72rem;
+    line-height: 1.28;
+  }
+
+  .bottombar {
+    gap: 0.35rem;
+  }
+
+  .progress-track {
+    height: 6px;
+  }
+
+  .footer-meta {
+    font-size: 0.68rem;
+    gap: 0.45rem;
   }
 }
 
