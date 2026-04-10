@@ -119,8 +119,8 @@ body {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.75fr) minmax(280px, 0.85fr);
-  gap: clamp(0.8rem, 1vw, 1.1rem);
+  grid-template-columns: 1fr;
+  gap: 0;
   align-items: stretch;
   min-height: 0;
 }
@@ -197,6 +197,17 @@ body {
   min-height: 0;
 }
 
+.poster-main {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.poster-inline-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
 .poster-body h2 {
   margin: 0.3rem 0 0.65rem;
   font-family: "Iowan Old Style", "Palatino Linotype", serif;
@@ -214,7 +225,6 @@ body {
 
 .announcement-layout,
 .prayer-layout,
-.side-panel,
 .info-list,
 .ticker-list,
 .queue-list {
@@ -296,15 +306,14 @@ body {
   font-size: clamp(1.2rem, 1.65vw, 1.8rem);
 }
 
-.side-panel {
-  grid-template-rows: 0.8fr 0.95fr 1fr;
-  min-height: 0;
-}
-
 .mini-card {
   padding: 1rem 1.05rem;
   border-radius: 24px;
   min-height: 0;
+}
+
+.inline-card {
+  height: 100%;
 }
 
 .mini-card h3 {
@@ -388,8 +397,8 @@ body {
     min-height: unset;
   }
 
-  .side-panel {
-    grid-template-rows: none;
+  .poster-inline-meta {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -400,7 +409,8 @@ body {
   }
 
   .info-list,
-  .prayer-grid {
+  .prayer-grid,
+  .poster-inline-meta {
     grid-template-columns: 1fr;
   }
 }
@@ -458,7 +468,6 @@ body {
   }
 
   .hero-grid {
-    grid-template-columns: minmax(0, 1.9fr) minmax(220px, 0.72fr);
     gap: 0.45rem;
   }
 
@@ -493,6 +502,15 @@ body {
     gap: 0.55rem;
   }
 
+  .poster-main {
+    gap: 0.55rem;
+  }
+
+  .poster-inline-meta {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.45rem;
+  }
+
   .poster-body h2 {
     margin: 0.18rem 0 0.45rem;
     font-size: clamp(1.25rem, 2.8vw, 2.2rem);
@@ -505,7 +523,6 @@ body {
 
   .announcement-layout,
   .prayer-layout,
-  .side-panel,
   .info-list,
   .ticker-list,
   .queue-list,
@@ -562,11 +579,6 @@ body {
     font-size: 1rem;
   }
 
-  .side-panel {
-    grid-template-rows: repeat(3, minmax(0, 1fr));
-    min-height: 0;
-  }
-
   .mini-card {
     padding: 0.68rem 0.75rem;
     border-radius: 18px;
@@ -608,11 +620,15 @@ body {
   }
 
   .hero-grid {
-    grid-template-columns: minmax(0, 2fr) minmax(200px, 0.68fr);
+    grid-template-columns: 1fr;
   }
 
   .poster-body {
     grid-template-columns: minmax(0, 1.35fr) minmax(200px, 0.82fr);
+  }
+
+  .poster-inline-meta {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -631,6 +647,10 @@ body {
 
   .poster-body {
     grid-template-columns: minmax(0, 1.3fr) minmax(290px, 0.9fr);
+  }
+
+  .poster-inline-meta {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 

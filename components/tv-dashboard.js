@@ -76,10 +76,44 @@ export function TVDashboard() {
               </div>
 
               <div className="poster-body">
-                <div>
+                <div className="poster-main">
                   <p className="poster-kicker">{activePoster.kicker}</p>
                   <h2>{activePoster.title}</h2>
                   <p className="poster-description">{activePoster.description}</p>
+                  <div className="poster-inline-meta">
+                    <div className="mini-card inline-card">
+                      <p className="eyebrow">Sedang Dipaparkan</p>
+                      <h3>{activePoster.label}</h3>
+                      <p>{activePoster.sideNote}</p>
+                    </div>
+
+                    <div className="mini-card inline-card">
+                      <p className="eyebrow">Seterusnya</p>
+                      <div className="queue-list">
+                        {slides.map((slide, index) => (
+                          <div
+                            className={`queue-item ${index === activeSlide ? "active" : ""}`}
+                            key={slide.id}
+                          >
+                            <span>{String(index + 1).padStart(2, "0")}</span>
+                            <strong>{slide.label}</strong>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="mini-card inline-card">
+                      <p className="eyebrow">Maklumat Ringkas</p>
+                      <div className="ticker-list">
+                        {dashboardContent.quickInfo.map((item) => (
+                          <div className="ticker-item" key={item.title}>
+                            <span>{item.title}</span>
+                            <strong>{item.value}</strong>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 {activePoster.type === "announcement" ? (
@@ -120,41 +154,6 @@ export function TVDashboard() {
               </div>
             </div>
           </article>
-
-          <aside className="side-panel">
-            <div className="mini-card">
-              <p className="eyebrow">Sedang Dipaparkan</p>
-              <h3>{activePoster.label}</h3>
-              <p>{activePoster.sideNote}</p>
-            </div>
-
-            <div className="mini-card">
-              <p className="eyebrow">Seterusnya</p>
-              <div className="queue-list">
-                {slides.map((slide, index) => (
-                  <div
-                    className={`queue-item ${index === activeSlide ? "active" : ""}`}
-                    key={slide.id}
-                  >
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    <strong>{slide.label}</strong>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mini-card">
-              <p className="eyebrow">Maklumat Ringkas</p>
-              <div className="ticker-list">
-                {dashboardContent.quickInfo.map((item) => (
-                  <div className="ticker-item" key={item.title}>
-                    <span>{item.title}</span>
-                    <strong>{item.value}</strong>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </aside>
         </section>
 
         <footer className="bottombar">
