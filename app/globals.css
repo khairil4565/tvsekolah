@@ -61,6 +61,12 @@ img {
   box-shadow: var(--shadow);
 }
 
+.card-announcement .visual-overlay {
+  background:
+    linear-gradient(180deg, rgba(25, 9, 18, 0.28) 0%, rgba(25, 9, 18, 0.5) 58%, rgba(25, 9, 18, 0.84) 100%),
+    linear-gradient(90deg, rgba(25, 9, 18, 0.62) 0%, rgba(25, 9, 18, 0.18) 48%, rgba(25, 9, 18, 0.62) 100%);
+}
+
 .display-visual {
   position: relative;
   min-height: 0;
@@ -179,11 +185,23 @@ img {
   font-size: inherit;
 }
 
+.announcement-title {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  line-height: 1.25;
+  color: var(--text);
+}
+
 .caption-card small {
   display: block;
   margin-top: 0.24rem;
   color: rgba(246, 240, 229, 0.68);
   font-size: clamp(0.64rem, 0.82vw, 0.8rem);
+}
+
+.announcement-strip {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .prayer-strip {
@@ -307,6 +325,11 @@ img {
     font-size: 0.54rem;
   }
 
+  .announcement-title {
+    margin-top: 0.18rem;
+    font-size: 0.82rem;
+  }
+
   .prayer-strip {
     gap: 0.34rem;
     padding: 0.42rem;
@@ -354,6 +377,10 @@ img {
   }
 
   .prayer-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .announcement-strip {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

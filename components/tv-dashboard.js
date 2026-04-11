@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { dashboardContent, mosqueSlides } from "../lib/dashboard-content";
 
 const SLIDE_DURATION_MS = 12_000;
+const CARD_ROTATION_MS = 30_000;
 
 function formatClock(date) {
   return new Intl.DateTimeFormat("ms-MY", {
@@ -25,6 +26,7 @@ function formatDate(date) {
 
 export function TVDashboard() {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [activeCard, setActiveCard] = useState(0);
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
@@ -43,12 +45,24 @@ export function TVDashboard() {
     return () => window.clearInterval(slideTimer);
   }, []);
 
+  useEffect(() => {
+    const cardTimer = window.setInterval(() => {
+      setActiveCard((current) => (current + 1) % 2);
+    }, CARD_ROTATION_MS);
+
+    return () => window.clearInterval(cardTimer);
+  }, []);
+
   const slide = mosqueSlides[activeSlide];
+  const isPrayerCard = activeCard === 0;
+  const tickerText = isPrayerCard
+    ? dashboardContent.tickerText
+    : dashboardContent.announcement.tickerText;
 
   return (
     <main className="screen-shell">
       <section className="screen-frame">
-        <article className="display-card">
+        <article className={`display-card ${isPrayerCard ? "card-prayer" : "card-announcement"}`}>
           <div className="display-visual">
             {mosqueSlides.map((item, index) => (
               <div
@@ -81,24 +95,47 @@ export function TVDashboard() {
 
             <div className="visual-caption">
               <div className="caption-card">
-                <span>{slide.caption}</span>
-                <small>{slide.credit}</small>
+                {isPrayerCard ? (
+                  <>
+                    <span>{slide.caption}</span>
+                    <small>{slide.credit}</small>
+                  </>
+                ) : (
+                  <>
+                    <span>{dashboardContent.announcement.label}</span>
+                    <strong className="announcement-title">
+                      {dashboardContent.announcement.title}
+                    </strong>
+                    <small>{dashboardContent.announcement.description}</small>
+                  </>
+                )}
               </div>
             </div>
           </div>
 
-          <div className="prayer-strip">
-            {dashboardContent.prayerTimes.map((prayer) => (
-              <div className="prayer-tile" key={prayer.name}>
-                <span>{prayer.name}</span>
-                <strong>{prayer.time}</strong>
-              </div>
-            ))}
-          </div>
+          {isPrayerCard ? (
+            <div className="prayer-strip">
+              {dashboardContent.prayerTimes.map((prayer) => (
+                <div className="prayer-tile" key={prayer.name}>
+                  <span>{prayer.name}</span>
+                  <strong>{prayer.time}</strong>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="prayer-strip announcement-strip">
+              {dashboardContent.announcement.details.map((detail) => (
+                <div className="prayer-tile" key={detail.name}>
+                  <span>{detail.name}</span>
+                  <strong>{detail.value}</strong>
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className="ticker-bar">
             <div className="ticker-track">
-              <span>{dashboardContent.tickerText}</span>
+              <span>{tickerText}</span>
             </div>
           </div>
         </article>
